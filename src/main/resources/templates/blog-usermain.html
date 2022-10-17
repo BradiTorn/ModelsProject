@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Читатель</title>
+</head>
+<body>
+<h1>Читатели</h1>
+<a href="/blog/usermain/useradd">Создать читателя</a>
+
+<form th:action="${'/blog/usermain'}" method="post">
+    <div th:each="el : ${users}">
+        <h1 th:text="${el.login}"></h1>
+        <h1 th:text="${el.password}"></h1>
+        <p th:text="${el.phone}"></p>
+        <p th:text="${el.email}"></p>
+    </div>
+</form >
+
+</body>
+</html>
