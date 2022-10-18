@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+<div th:each="el : ${post}">
+    <form method="post">
+
+        <input th:value="${el.login}" type="text" name="login" placeholder="Введите Заголовок поста"><br><br>
+        <input th:value="${el.password}" type="text" name="password" placeholder="Введите Имя поста"><br><br>
+        <input th:value="${el.phone}" type="text" name="phone" placeholder="Введите информацию о посте"><br><br>
+        <input th:value="${el.checks}" type="number" name="checks" placeholder="Введите текст поста"><br><br>
+        <label>Заблокированный</label>
+        <input th:value="${el.accesss}" type="radio" name="accesss" value="0"><br>
+        <label>Подверждённый</label>
+        <input th:value="${el.accesss}" type="radio" name="accesss" value="1">
+        <br>
+        <br>
+        <button type="submit">Добавить читателя</button>
+
+
+    </form>
+</div>
+
+</body>
+</html>

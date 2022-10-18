@@ -13,8 +13,7 @@
         <hr>
         <h3 th:text="${el.shapka}"></h3>
         <h2 th:text="${el.name}"></h2>
-        <p th:text="${el.info}"></p>
-        <p th:text="${el.maintext}"></p>
+        <a th:href=" '/blog/' + ${el.id}">Подробнее</a>
         <hr>
     </div>
 </form>
@@ -26,8 +25,7 @@
         <hr>
         <h3 th:text="${el.shapka}"></h3>
         <h2 th:text="${el.name}"></h2>
-        <p th:text="${el.info}"></p>
-        <p th:text="${el.maintext}"></p>
+        <a th:href=" '/blog/' + ${el.id}">Подробнее</a>
         <hr>
     </div>
 </form>
@@ -37,8 +35,7 @@
         <hr>
         <h3 th:text="${el.shapka}"></h3>
         <h2 th:text="${el.name}"></h2>
-        <p th:text="${el.info}"></p>
-        <p th:text="${el.maintext}"></p>
+        <a th:href=" '/blog/info/' + ${el.id}">Подробнее</a>
         <hr>
     </div>
 </form >

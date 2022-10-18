@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BlogController  {
     @Autowired
     private PostRepository postRepository;
-
 
     @GetMapping("/")
     public String blogMain(Model model)
@@ -25,7 +25,6 @@ public class BlogController  {
         model.addAttribute("posts", posts);
         return "blog-main";
     }
-
 
     @GetMapping("/blog/add")
     public String blogAdd(Model model)
@@ -57,7 +56,52 @@ public class BlogController  {
         return "blog-filter";
     }
 
+    @GetMapping("/blog/{id}")
+    public String blogDetails(@PathVariable(value = "id") long id, Model model)
+    {
+        Optional<Post> post = postRepository.findById(id);
+        ArrayList<Post> res = new ArrayList<>();
+        post.ifPresent(res::add);
+        model.addAttribute("post", res);
+        if(!postRepository.existsById(id)){
+            return "redirect:/blog";
+        }
+        return "blog-details";
+    }
 
+    @GetMapping("/blog/{id}/edit")
+    public String blogEdit(@PathVariable("id") long id, Model model)
+    {
+        if(!postRepository.existsById(id)){
+            return "redirect:/";
+        }
+        Optional<Post> post = postRepository.findById(id);
+        ArrayList<Post> res = new ArrayList<>();
+        post.ifPresent(res::add);
+        model.addAttribute("post", res);
 
+        return "blog-edit";
+    }
 
+    @PostMapping("/blog/{id}/edit")
+    public String blogPostUpdate(@PathVariable("id") long id,
+                                 @RequestParam String title,
+                                 @RequestParam String anons,
+                                 @RequestParam String full_text, Model model)
+    {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setTitle(title);
+        post.setAnons(anons);
+        post.setFull_text(full_text);
+        postRepository.save(post);
+        return "redirect:/";
+    }
+
+    @PostMapping("/blog/{id}/remove")
+    public String blogPostRemove(@PathVariable("id") long id, Model model)
+    {
+        Post post = postRepository.findById(id).orElseThrow();
+        postRepository.delete(post);
+        return "redirect:/";
+    }
 }

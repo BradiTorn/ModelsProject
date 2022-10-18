@@ -14,6 +14,8 @@
 <div th:each="el : ${posts}">
     <h3 th:text="${el.title}"></h3>
     <p th:text="${el.anons}"></p>
+    <br>
+    <a th:href=" '/blog/' + ${el.id}">Подробнее</a>
 </div>
 </body>
 </html>

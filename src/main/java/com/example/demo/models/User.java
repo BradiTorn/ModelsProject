@@ -8,12 +8,12 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-    public User(String login, String password, String phone, String email, String gender) {
+    public User(String login, String password, int phone, float checks, boolean accesss) {
         this.login = login;
         this.password = password;
         this.phone = phone;
-        this.email = email;
-        this.gender = gender;
+        this.checks = checks;
+        this.accesss = accesss;
     }
 
     public User() {
@@ -22,7 +22,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String login, password, phone, email, gender;
+    private String login, password;
+    private int phone;
+    private float checks;
+    private boolean accesss;
 
     public Long getId() {
         return id;
@@ -48,27 +51,27 @@ public class User {
         this.password = password;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public float getChecks() {
+        return checks;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setChecks(float checks) {
+        this.checks = checks;
     }
 
-    public String getGender() {
-        return gender;
+    public boolean getAccesss() {
+        return accesss;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAccesss(boolean accesss) {
+        this.accesss = accesss;
     }
 }

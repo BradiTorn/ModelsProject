@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class InfoPost {
 
-    public InfoPost(String shapka, String name, String info, String maintext, int stat) {
+    public InfoPost(String shapka, String name, String info, double maintext, int stat) {
 
         this.shapka = shapka;
         this.name = name;
@@ -23,7 +23,8 @@ public class InfoPost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String shapka, name, info, maintext;
+    private String shapka, name, info;
+    private double maintext;
     private int stat;
 
     public Long getId() {
@@ -58,19 +59,19 @@ public class InfoPost {
         this.info = info;
     }
 
-    public String getMaintext() {
+    public double getMaintext() {
         return maintext;
     }
 
-    public void setMaintext(String maintext) {
+    public void setMaintext(double maintext) {
         this.maintext = maintext;
     }
 
-    public int getViews() {
+    public int getStat() {
         return stat;
     }
 
-    public void setViews(int stat) {
+    public void setStat(int stat) {
         this.stat = stat;
     }
 
