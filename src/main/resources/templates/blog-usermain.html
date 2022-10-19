@@ -5,7 +5,7 @@
     <title>Читатель</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body bgcolor="#696969" th:align="center">
 <h1>Читатели</h1>
 <a href="/blog/usermain/useradd">Создать читателя</a>
 <form th:action="${'/blog/usermain'}" method="post">
@@ -22,3 +22,27 @@
 </form >
 </body>
 </html>
+
+<style>
+
+    body{
+        margin: 0;
+    }
+
+    h1, h2, h3, p, a, label{
+        margin: 0;
+        font-family: "Tahoma";
+        color: white;
+    }
+
+    header{
+        margin: 0px;
+        background-color: dimgrey;
+    }
+
+    a{
+        border-radius: 5px;
+        color: white;
+    }
+
+</style>

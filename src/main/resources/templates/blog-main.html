@@ -4,18 +4,47 @@
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-<h1>Все статьи</h1>
-<a href="/blog/filter">Поиск статей</a>
-<a href="/blog/add">Добавить статью</a>
-<a href="/blog/info">Информационные посты</a>
-<a href="/blog/usermain">Пользователи</a>
+<body bgcolor="gray" th:align="center">
+<header>
+    <h1>Все статьи</h1>
+    <a href="/blog/filter">Поиск статей</a>
+    <a href="/blog/add">Добавить статью</a>
+    <a href="/blog/info">Информационные посты</a>
+    <a href="/blog/usermain">Пользователи</a>
+</header>
 
-<div th:each="el : ${posts}">
+
+<div class="razdel" th:each="el : ${posts}">
+    <hr>
     <h3 th:text="${el.title}"></h3>
     <p th:text="${el.anons}"></p>
     <br>
     <a th:href=" '/blog/' + ${el.id}">Подробнее</a>
+    <hr>
 </div>
 </body>
 </html>
+
+<style>
+    body{
+        margin: 0;
+    }
+
+    h1, h2, h3, p, a, label{
+        margin: 0;
+        font-family: "Tahoma";
+        color: white;
+    }
+
+    header{
+        margin: 0px;
+        background-color: dimgrey;
+    }
+
+    a{
+        border-radius: 5px;
+        color: white;
+    }
+
+
+</style>

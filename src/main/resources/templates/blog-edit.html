@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Update</title>
 </head>
-<body>
+<body  bgcolor="#696969" th:align="center">
 <div th:each="el : ${post}">
     <form method="post">
-        <input th:value="${el.title}" type="text" name="title" placeholder="Введите название статьи">
-        <input th:value="${el.anons}" type="text" name="anons" placeholder="Введите анос статьи">
+        <input class="type-1" th:value="${el.title}" type="text" name="title" placeholder="Введите название статьи">
+        <input class="type-1" th:value="${el.anons}" type="text" name="anons" placeholder="Введите анос статьи">
         <textarea th:value="${el.full_text}" name="full_text" placeholder="Введите текст статьи"></textarea>
         <br>
         <button type="submit">Добавить статью</button>
@@ -17,3 +17,50 @@
 
 </body>
 </html>
+
+<style>
+    input {
+        padding:10px;
+        margin:10px 0;
+        width: 40%;
+    }
+
+    button {
+        padding:10px;
+        border:none;
+        background-color:#aaaaaa;
+        color:#ffffff;
+        font-weight:600;
+        border-radius:5px;
+    }
+
+    body{
+        margin: 0;
+    }
+
+    h1, h2, h3, p, a{
+        margin: 0;
+        font-family: "Tahoma";
+        color: white;
+    }
+
+    .type-1 {
+        border-radius:10px;
+        border: 1px solid #eee;
+        transition: .3s border-color;
+    }
+
+    .type-1:hover {
+        border: 1px solid #aaa;
+    }
+
+    textarea {
+        resize: vertical;
+        padding:15px;
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+        height:150px;
+        width: 200px;
+    }
+</style>

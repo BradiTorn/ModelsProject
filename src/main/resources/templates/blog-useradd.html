@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <title>Добавление читателя</title>
 </head>
-<body>
+<body bgcolor="#696969" th:align="center">
 
 <form th:action="${'/blog/usermain/useradd'}" method="post">
     <hr>
-    <input type="text" name="login" placeholder="Введите Заголовок поста"><br><br>
-    <input type="password" name="password" placeholder="Введите Имя поста"><br><br>
-    <input type="number" name="phone" placeholder="Введите информацию о посте"><br><br>
-    <input type="number" name="checks" placeholder="Введите текст поста"><br><br>
-    <label>Заблокированный</label>
-    <input type="radio" name="accesss" value="0"><br>
-    <label>Подверждённый</label>
-    <input type="radio" name="accesss" value="1">
+    <input class="type-1" type="text" name="login" placeholder="Введите Заголовок поста"><br><br>
+    <input class="type-1" type="password" name="password" placeholder="Введите Имя поста"><br><br>
+    <input class="type-1" type="number" name="phone" placeholder="Введите информацию о посте"><br><br>
+    <input class="type-1" type="number" name="checks" placeholder="Введите текст поста"><br><br>
+    <label>Заблокированный
+        <input type="radio" name="accesss" value="0">
+        <span></span>
+    </label>
+
+    <label>Подверждённый
+        <input type="radio" name="accesss" value="1">
+        <span></span>
+    </label>
+
     <br>
     <br>
     <button type="submit">Добавить читателя</button>
@@ -23,7 +29,7 @@
 </form>
 
 <form method="post" th:action="${'/blog/usermain/useradd/result'}">
-    <input type="text" name="login">
+    <input class="type-1" type="text" name="login" placeholder="Неточный поиск">
     <button type="submit">Найти</button>
     <div th:each="el : ${result}">
         <hr>
@@ -37,7 +43,7 @@
 </form>
 
 <form method="post" th:action="${'/blog/usermain/useradd/resultnocon'}">
-    <input type="text" name="login">
+    <input class="type-1" type="text" name="login" placeholder="Точный поиск">
     <button type="submit">Найти</button>
     <div th:each="el : ${resultnocon}">
         <hr>
@@ -51,3 +57,109 @@
 </form>
 </body>
 </html>
+
+<style>
+    input {
+        padding:10px;
+        margin:10px 0;
+        width: 40%;
+    }
+
+    button {
+        padding:10px;
+        border:none;
+        background-color:#aaaaaa;
+        color:#ffffff;
+        font-weight:600;
+        border-radius:5px;
+    }
+
+    body{
+        margin: 0;
+    }
+
+    h1, h2, h3, p, a, label{
+        margin: 0;
+        font-family: "Tahoma";
+        color: white;
+    }
+
+    .type-1 {
+        border-radius:10px;
+        border: 1px solid #eee;
+        transition: .3s border-color;
+    }
+
+    .type-1:hover {
+        border: 1px solid #aaa;
+    }
+
+    textarea {
+        resize: vertical;
+        padding:15px;
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+        height:150px;
+    }
+
+
+
+
+
+
+    label {
+        margin-bottom:4px;
+        position: relative; /* to contain absolute elements */
+        padding-left:30px; /* free space for custom radio button */
+        cursor: pointer;
+    }
+    /* hide default radio button  */
+    label input[type=radio] {
+        position: absolute; /* prevent taking any space */
+        /* cross-browser hidingg */
+        opactiy: 0;
+        width:0;
+        height:0;
+    }
+    /* custom radio button */
+    label span {
+        position: absolute;
+        /* position to the free space in <label> */
+        top:0;
+        left:0;
+        width:20px;
+        height:20px;
+        background-color: #ddd;
+        border-radius: 50%;
+        transition: .3s background-color; /* slight transition */
+    }
+    /* the check icon */
+    label span:after {
+        content: "";
+        position: absolute;
+        display: none;
+
+        /* middle */
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background-color:#fff;
+        width:8px;
+        height:8px;
+        border-radius:50%;
+    }
+    label:hover span {
+        background-color: #ccc;
+    }
+
+    /**** Here's the trick ***/
+    label input:checked ~ span {
+        background-color: #2eaadc;
+    }
+    label input:checked ~ span:after {
+        display:block;
+    }
+
+
+</style>

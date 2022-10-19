@@ -108,7 +108,7 @@ public class OnController {
         post.setMaintext(maintext);
         post.setStat(stat);
         infoRepository.save(post);
-        return "redirect:/";
+        return "redirect:../";
     }
 
     @PostMapping("/blog/info/{id}/remove")
