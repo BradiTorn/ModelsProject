@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class InfoPost {
@@ -23,8 +24,26 @@ public class InfoPost {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String shapka, name, info;
+
+
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 3, max = 20, message = "От 3 до 20 символов")
+    private String shapka;
+
+
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2, max = 20, message = "От 2 до 20 символов")
+    private String name;
+
+
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 4, max = 30, message = "От 4 до 30 символов")
+    private String info;
+
+    @DecimalMax("100000.0") @DecimalMin("0.0")
     private double maintext;
+
+    @Positive(message = "Число должно быть положительным")
     private int stat;
 
     public Long getId() {

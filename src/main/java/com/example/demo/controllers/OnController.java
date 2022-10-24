@@ -8,6 +8,8 @@ import com.example.demo.repo.InfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class OnController {
     {
         Iterable<InfoPost> infos = infoRepository.findAll();
         model.addAttribute("infos", infos);
+        model.addAttribute("info", new InfoPost());
         return "blog-info";
     }
 
@@ -37,14 +40,11 @@ public class OnController {
 //    }
 
     @PostMapping("/blog/info")
-    public String infoPostAdd(@RequestParam String shapka,
-                              @RequestParam String name,
-                              @RequestParam String info,
-                              @RequestParam double maintext,
-                              @RequestParam int stat, Model model)
-    {
-        InfoPost infopost = new InfoPost(shapka, name, info, maintext, stat);
-        infoRepository.save(infopost);
+    public String infoPostAdd(@ModelAttribute("info")@Validated InfoPost info, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "blog-info";
+        }
+        infoRepository.save(info);
         return "redirect:/";
     }
 
@@ -66,6 +66,11 @@ public class OnController {
 
 
 
+
+
+
+
+
     @GetMapping("/blog/info/{id}")
     public String infoDetails(@PathVariable(value = "id") long id, Model model)
     {
@@ -83,31 +88,22 @@ public class OnController {
     public String blogEdit(@PathVariable("id") long id, Model model)
     {
         if(!infoRepository.existsById(id)){
-            return "redirect:/";
+            return "redirect:../";
         }
-        Optional<InfoPost> post = infoRepository.findById(id);
-        ArrayList<InfoPost> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
+        InfoPost res = infoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Неверный id: "+id));
+        model.addAttribute("info", res);
 
         return "blog-infoedit";
     }
 
     @PostMapping("/blog/info/{id}/edit")
-    public String blogPostUpdate(@PathVariable("id") long id,
-                                 @RequestParam String shapka,
-                                 @RequestParam String name,
-                                 @RequestParam String info,
-                                 @RequestParam double maintext,
-                                 @RequestParam int stat, Model model)
-    {
-        InfoPost post = infoRepository.findById(id).orElseThrow();
-        post.setShapka(shapka);
-        post.setName(name);
-        post.setInfo(info);
-        post.setMaintext(maintext);
-        post.setStat(stat);
-        infoRepository.save(post);
+    public String blogPostUpdate(@PathVariable("id") long id, @ModelAttribute("info") @Validated InfoPost info, BindingResult bindingResult){
+        info.setId(id);
+        if(bindingResult.hasErrors()){
+
+            return "blog-infoedit";
+        }
+        infoRepository.save(info);
         return "redirect:../";
     }
 

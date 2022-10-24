@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Добавление читателя</title>
 </head>
 <body bgcolor="#696969" th:align="center">
 
-<form th:action="${'/blog/usermain/useradd'}" method="post">
+<form th:action="${'/blog/usermain/useradd'}" th:object="${user}"  method="post">
     <hr>
-    <input class="type-1" type="text" name="login" placeholder="Введите Заголовок поста"><br><br>
-    <input class="type-1" type="password" name="password" placeholder="Введите Имя поста"><br><br>
-    <input class="type-1" type="number" name="phone" placeholder="Введите информацию о посте"><br><br>
-    <input class="type-1" type="number" name="checks" placeholder="Введите текст поста"><br><br>
+    <input class="type-1" th:field="*{login}" id="login" type="text" placeholder="Введите Заголовок поста">
+    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+    <br><br>
+    <input class="type-1" th:field="*{password}" type="password" id="password" name="password" placeholder="Введите Имя поста">
+    <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+    <br><br>
+    <input class="type-1" th:field="*{phone}" type="number" id="phone" name="phone" placeholder="Введите информацию о посте">
+    <td th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></td>
+    <br><br>
+    <input class="type-1" th:field="*{checks}" type="number" id="checks" name="checks" placeholder="Введите текст поста">
+    <td th:if="${#fields.hasErrors('checks')}" th:errors="*{checks}"></td>
+    <br><br>
     <label>Заблокированный
-        <input type="radio" name="accesss" value="0">
+        <input th:field="*{accesss}" type="radio"  name="accesss" value="0">
         <span></span>
     </label>
 
     <label>Подверждённый
-        <input type="radio" name="accesss" value="1">
+        <input th:field="*{accesss}" type="radio" id="accesss" name="accesss" value="1">
         <span></span>
     </label>
+    <td th:if="${#fields.hasErrors('accesss')}" th:errors="*{accesss}"></td>
+
 
     <br>
     <br>
