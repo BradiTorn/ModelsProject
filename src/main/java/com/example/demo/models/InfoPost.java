@@ -9,11 +9,11 @@ import javax.validation.constraints.*;
 @Entity
 public class InfoPost {
 
-    public InfoPost(String shapka, String name, String info, double maintext, int stat) {
+    public InfoPost(String shapka, String name, String inform, double maintext, int stat) {
 
         this.shapka = shapka;
         this.name = name;
-        this.info = info;
+        this.inform = inform;
         this.maintext = maintext;
         this.stat = stat;
     }
@@ -38,7 +38,7 @@ public class InfoPost {
 
     @NotEmpty(message = "Поле не может быть пустым")
     @Size(min = 4, max = 30, message = "От 4 до 30 символов")
-    private String info;
+    private String inform;
 
     @DecimalMax("100000.0") @DecimalMin("0.0")
     private double maintext;
@@ -70,12 +70,12 @@ public class InfoPost {
         this.name = name;
     }
 
-    public String getInfo() {
-        return info;
+    public String getInform() {
+        return inform;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setInform(String inform) {
+        this.inform = inform;
     }
 
     public double getMaintext() {

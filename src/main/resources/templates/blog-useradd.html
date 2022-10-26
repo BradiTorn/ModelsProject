@@ -8,8 +8,8 @@
 
 <form th:action="${'/blog/usermain/useradd'}" th:object="${user}"  method="post">
     <hr>
-    <input class="type-1" th:field="*{login}" id="login" type="text" placeholder="Введите Заголовок поста">
-    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+    <input class="type-1" th:field="*{username}" id="username" type="text" placeholder="Введите Заголовок поста">
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
     <br><br>
     <input class="type-1" th:field="*{password}" type="password" id="password" name="password" placeholder="Введите Имя поста">
     <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>

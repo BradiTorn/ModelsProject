@@ -47,17 +47,17 @@ public class UserController {
     }
 
     @PostMapping("/blog/usermain/useradd/result")
-    public String blogResult(@RequestParam String login, Model model)
+    public String blogResult(@RequestParam String username, Model model)
     {
-        List<User> result = userRepository.findByLoginContains(login);
+        List<User> result = userRepository.findByUsernameContains(username);
         model.addAttribute("result", result);
         return "blog-useradd";
     }
 
     @PostMapping("/blog/usermain/useradd/resultnocon")
-    public String blogResultNoContains(@RequestParam String login, Model model)
+    public String blogResultNoContains(@RequestParam String username, Model model)
     {
-        List<User> resultnocon = userRepository.findByLogin(login);
+        List<User> resultnocon = userRepository.findByUsername(username);
         model.addAttribute("resultnocon", resultnocon);
         return "blog-useradd";
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findByLoginContains(String login);
-    List<User> findByLogin(String login);
+    List<User> findByUsernameContains(String username);
+    List<User> findByUsername(String username);
 
 }

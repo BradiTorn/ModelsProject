@@ -13,8 +13,8 @@ import javax.validation.constraints.Size;
 @Entity
 public class User {
 
-    public User(String login, String password, int phone, float checks, boolean accesss) {
-        this.login = login;
+    public User(String username, String password, int phone, float checks, boolean accesss) {
+        this.username = username;
         this.password = password;
         this.phone = phone;
         this.checks = checks;
@@ -31,7 +31,7 @@ public class User {
 
     @NotEmpty(message = "Поле не может быть пустым")
     @Size(min = 4, max = 20, message = "От 4 до 20 символов")
-    private String login;
+    private String username;
 
 
     @NotEmpty(message = "Поле не может быть пустым")
@@ -56,12 +56,12 @@ public class User {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

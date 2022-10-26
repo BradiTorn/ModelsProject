@@ -12,8 +12,8 @@
         <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('shapka')}" th:errors="*{shapka}"></div><br><br>
         <input th:field="*{name}" class="type-1" th:value="${el.name}" type="text" name="name" placeholder="Введите Имя поста">
         <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('name')}" th:errors="*{name}"></div><br><br>
-        <input th:field="*{info}" class="type-1" th:value="${el.info}" type="text" name="info" placeholder="Введите информацию о посте">
-        <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('info')}" th:errors="*{info}"></div><br><br>
+        <input th:field="*{inform}" class="type-1" th:value="${el.inform}" type="text" name="inform" placeholder="Введите информацию о посте">
+        <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('inform')}" th:errors="*{inform}"></div><br><br>
         <input th:field="*{maintext}" class="type-1" th:value="${el.maintext}" type="number" name="maintext" placeholder="Введите текст поста">
         <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('maintext')}" th:errors="*{maintext}"></div><br><br>
         <input th:field="*{stat}" class="type-1" th:value="${el.stat}" type="number" name="stat" placeholder="Введите количество просмотров"><br>
@@ -21,7 +21,6 @@
         <br>
         <br>
         <button type="submit">Добавить новую статью</button>
-
 
     </form>
 </div>

@@ -8,8 +8,8 @@
 <div th:each="el : ${user}">
     <form th:object="${user}" method="post">
 
-        <input th:field="*{login}" class="type-1" th:value="${el.login}" type="text" name="login" placeholder="Введите Заголовок поста"><br><br>
-        <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('login')}" th:errors="*{login}"></div><br>
+        <input th:field="*{username}" class="type-1" th:value="${el.username}" type="text" name="username" placeholder="Введите Заголовок поста"><br><br>
+        <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('username')}" th:errors="*{username}"></div><br>
         <input th:field="*{password}" class="type-1" th:value="${el.password}" type="text" name="password" placeholder="Введите Имя поста"><br><br>
         <div style="width: 250px; height: 40px; margin: 2px" th:if="*{#fields.hasErrors('password')}" th:errors="*{password}"></div><br>
         <input th:field="*{phone}" class="type-1" th:value="${el.phone}" type="text" name="phone" placeholder="Введите информацию о посте"><br><br>
