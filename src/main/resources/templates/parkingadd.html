@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" >
+  <title>Title</title>
+</head>
+<body bgcolor="#696969" th:align="center">
+
+<form th:action = "${'/blog/carmain/parkingadd'}" method="post" >
+  <input type="number" name="rack" placeholder="Введите наименование"><br><br>
+  <button type="submit">Добавить стоянку</button>
+</form>
+
+</body>
+
+</html>
+
+<style>
+  input {
+    padding:10px;
+    margin:10px 0;
+    width: 40%;
+  }
+
+  button {
+    padding:10px;
+    border:none;
+    background-color:#aaaaaa;
+    color:#ffffff;
+    font-weight:600;
+    border-radius:5px;
+  }
+
+  body{
+    margin: 0;
+  }
+
+  h1, h2, h3, p, a{
+    margin: 0;
+    font-family: "Tahoma";
+    color: white;
+  }
+
+  .type-1 {
+    border-radius:10px;
+    border: 1px solid #eee;
+    transition: .3s border-color;
+  }
+
+  .type-1:hover {
+    border: 1px solid #aaa;
+  }
+
+  textarea {
+    resize: vertical;
+    padding:15px;
+    border-radius:15px;
+    border:0;
+    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+    height:150px;
+    width: 200px;
+  }
+
+
+</style>

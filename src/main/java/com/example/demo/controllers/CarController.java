@@ -1,14 +1,8 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.models.Car;
-import com.example.demo.models.Garage;
-import com.example.demo.models.Marka;
-import com.example.demo.models.Post;
-import com.example.demo.repo.CarRepository;
-import com.example.demo.repo.GarageRepository;
-import com.example.demo.repo.MarkaRepository;
-import com.example.demo.repo.PostRepository;
+import com.example.demo.models.*;
+import com.example.demo.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +24,9 @@ public class CarController {
 
     @Autowired
     private GarageRepository garageRepository;
+
+    @Autowired
+    private ParkingRepository parkingRepository;
 
     @GetMapping("/blog/carmain")
     public String carMain(Model model)
@@ -68,6 +65,31 @@ public class CarController {
         return "redirect:/";
     }
 
+
+
+    @GetMapping("/blog/carmain/parkingadd")
+    public String parkingAdd(Garage garage, Model model){
+        return "parkingadd";
+    }
+
+    @PostMapping("/blog/carmain/parkingadd")
+    public Object garagePostAdd(@ModelAttribute("parking")@Validated Parking parking, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "parkingadd";
+        }
+        parkingRepository.save(parking);
+        return "redirect:/";
+    }
+
+
+
+
+
+
+
+
+
+
     @PostMapping("/blog/carmain/caradd")
     public String blogPostAdd(@ModelAttribute("car")@Validated Car car, BindingResult bindingResult,
                               @RequestParam Long marka_id, Model model){
@@ -90,6 +112,4 @@ public class CarController {
         markaRepository.save(marka);
         return "redirect:/";
     }
-
-
 }

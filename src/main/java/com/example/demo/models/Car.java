@@ -5,18 +5,20 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
 @Table(name = "car")
 public class Car {
 
-    public Car(int nomer, String namecar, Marka marka, Garage garage) {
+    public Car(int nomer, String namecar, Marka marka, Garage garage, List<Parking> parkingList) {
 
         this.nomer = nomer;
         this.namecar = namecar;
         this.marka = marka;
         this.garage = garage;
+        this.parkingList = parkingList;
     }
 
     public Car() {
@@ -39,8 +41,10 @@ public class Car {
     @JoinColumn(name = "garage_id")
     private Garage garage;
 
-
-
+    @ManyToMany
+    @JoinTable(name = "ParkCar",
+            joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "parking_id"))
+    private List<Parking> parkingList;
 
 
     public Long getId() {
@@ -83,5 +87,15 @@ public class Car {
     public Garage getGarage() { return garage; }
 
     public void setGarage(Garage garage) { this.garage = garage; }
+
+
+
+    public List<Parking> getParkingList() {
+        return parkingList;
+    }
+
+    public void setParkingList(List<Parking> parkingList) {
+        this.parkingList = parkingList;
+    }
 
 }

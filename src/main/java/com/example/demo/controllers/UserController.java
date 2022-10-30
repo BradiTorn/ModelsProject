@@ -63,11 +63,6 @@ public class UserController {
     }
 
 
-
-
-
-
-
     @GetMapping("/blog/usermain/{id}")
     public String userDetails(@PathVariable(value = "id") long id, Model model)
     {
