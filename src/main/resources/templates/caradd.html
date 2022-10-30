@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+    <title>Title</title>
+</head>
+<body bgcolor="#696969" th:align="center">
+
+
+<form th:action = "${'/blog/carmain/caradd'}" method="post" th:object="${car}">
+  <input type="number" name="nomer" placeholder="Введите номер"><br><br>
+  <input type="text" name="namecar" placeholder="Введите наименование"><br><br>
+  <div>
+    <label>Выберите марку</label>
+    <select name="marka_id">
+      <div th:each="rr : ${markas}">
+        <option  th:value="${rr.id}" th:text="${rr.getNameMarka()}" >
+        </option>
+      </div>
+    </select>
+    <div>
+      <label>Выберите гаражное место</label>
+      <div th:if="${#fields.hasErrors('garage')}" th:errors="*{garage}"></div>
+      <select th:field="*{garage}" name="garage">
+        <option th:each="garage : ${garagess}"
+                th:if="${(car.garage != null && garage.id == car.garage.id) || garage.car == null}"
+                th:value="${garage.id}"
+                th:text="${garage.mesto}">
+        </option>
+      </select>
+    </div>
+  </div>
+  <button type="submit">Добавить машину</button>
+</form>
+
+
+
+</body>
+</html>
+
+<style>
+  input {
+    padding:10px;
+    margin:10px 0;
+    width: 40%;
+  }
+
+  button {
+    padding:10px;
+    border:none;
+    background-color:#aaaaaa;
+    color:#ffffff;
+    font-weight:600;
+    border-radius:5px;
+  }
+
+  body{
+    margin: 0;
+  }
+
+  h1, h2, h3, p, a{
+    margin: 0;
+    font-family: "Tahoma";
+    color: white;
+  }
+
+  .type-1 {
+    border-radius:10px;
+    border: 1px solid #eee;
+    transition: .3s border-color;
+  }
+
+  .type-1:hover {
+    border: 1px solid #aaa;
+  }
+
+  textarea {
+    resize: vertical;
+    padding:15px;
+    border-radius:15px;
+    border:0;
+    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+    height:150px;
+    width: 200px;
+  }
+
+
+</style>

@@ -1,9 +1,6 @@
 package com.example.demo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
@@ -19,6 +16,7 @@ public class User {
         this.phone = phone;
         this.checks = checks;
         this.accesss = accesss;
+
     }
 
     public User() {
@@ -95,4 +93,5 @@ public class User {
     public void setAccesss(boolean accesss) {
         this.accesss = accesss;
     }
+
 }
