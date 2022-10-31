@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Читатель</title>
+</head>
+
+
+<body bgcolor="#696969" th:align="center">
+
+
+  <h1>Читатели</h1>
+  <a href="/admin/useradd">Создать читателя</a>
+  <div th:each="el : ${users}">
+    <hr>
+    <p th:text="${el.username}"></p>
+    <p th:text="${el.roles}"></p>
+    <a th:href="'/admin/' + ${el.id} + '/edit'">Редактировать</a>
+    <form th:action=" '/admin/' + ${el.id} + '/remove'" method="post">
+      <button type="submit" class="btn btn-del">Удалить</button>
+    </form>
+    <hr>
+  </div>
+
+
+
+
+</body>
+</html>
+
+<style>
+
+  body{
+    margin: 0;
+  }
+
+  h1, h2, h3, p, a, label{
+    margin: 0;
+    font-family: "Tahoma";
+    color: white;
+  }
+
+  header{
+    margin: 0px;
+    background-color: dimgrey;
+  }
+
+  a{
+    border-radius: 5px;
+    color: white;
+  }
+
+</style>

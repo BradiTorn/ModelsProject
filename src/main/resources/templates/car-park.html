@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Машины на стоянке</title>
+</head>
+<body bgcolor="#696969" th:align="center">
+
+<h1>Добавление студента в университет</h1>
+<hr>
+<a href="/blog/carmain/car-park/car-park-add" style="font-size: 20px">Переход к добавлению</a>
+<hr>
+<div th:each="el : ${cars}">
+    <hr>
+    <h3 th:text="${'Наименование: '+el.getNamecar()}" style="display: inline-block"></h3>
+    <h4 th:text="${'Стоянки: '+el.parkingList}"></h4>
+    <hr>
+</div>
+
+</body>
+</html>
+
+<style>
+    input {
+        padding:10px;
+        margin:10px 0;
+        width: 40%;
+    }
+
+    button {
+        padding:10px;
+        border:none;
+        background-color:#aaaaaa;
+        color:#ffffff;
+        font-weight:600;
+        border-radius:5px;
+    }
+
+    body{
+        margin: 0;
+    }
+
+    h1, h2, h3, h4, p, a, label{
+        margin: 0;
+        font-family: "Tahoma";
+        color: white;
+    }
+
+    .type-1 {
+        border-radius:10px;
+        border: 1px solid #eee;
+        transition: .3s border-color;
+    }
+
+    .type-1:hover {
+        border: 1px solid #aaa;
+    }
+
+    textarea {
+        resize: vertical;
+        padding:15px;
+        border-radius:15px;
+        border:0;
+        box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+        height:150px;
+        width: 200px;
+    }
+
+
+</style>

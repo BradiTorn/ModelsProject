@@ -1,111 +1,84 @@
 package com.example.demo.controllers;
 
-
-import com.example.demo.models.InfoPost;
-import com.example.demo.models.Post;
+import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/admin")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class UserController {
-
     @Autowired
     private UserRepository userRepository;
-
-    @GetMapping("/blog/usermain")
-    public String UserMain(Model model)
-    {
-        Iterable<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "blog-usermain";
+    @GetMapping
+    public String userList(Model model){
+        model.addAttribute("users", userRepository.findAll());
+        return "userList";
     }
 
-    @GetMapping("/blog/usermain/useradd")
-    public String blogAdd(Model model)
-    {
-        model.addAttribute("user", new User());
-        return "blog-useradd";
-    }
-
-    @PostMapping("/blog/usermain/useradd")
-    public String blogPostAdd(@ModelAttribute("user")@Validated User user, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "blog-useradd";
-        }
-        userRepository.save(user);
-        return "redirect:/blog/usermain";
-    }
-
-    @PostMapping("/blog/usermain/useradd/result")
-    public String blogResult(@RequestParam String username, Model model)
-    {
-        List<User> result = userRepository.findByUsernameContains(username);
-        model.addAttribute("result", result);
-        return "blog-useradd";
-    }
-
-    @PostMapping("/blog/usermain/useradd/resultnocon")
-    public String blogResultNoContains(@RequestParam String username, Model model)
-    {
-        List<User> resultnocon = userRepository.findByUsername(username);
-        model.addAttribute("resultnocon", resultnocon);
-        return "blog-useradd";
-    }
-
-
-    @GetMapping("/blog/usermain/{id}")
-    public String userDetails(@PathVariable(value = "id") long id, Model model)
-    {
-        Optional<User> post = userRepository.findById(id);
+    @GetMapping("/{id}/edit")
+    public String userEdit(@PathVariable(value = "id") long id, Model model){
+        Optional<User> user = userRepository.findById(id);
         ArrayList<User> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
-        model.addAttribute("user", new User());
-        if(!userRepository.existsById(id)){
-            return "redirect:/blog/usermain";
-        }
-        return "blog-userdetails";
-    }
-
-    @GetMapping("/blog/usermain/{id}/edit")
-    public String blogEdit(@PathVariable("id") long id, Model model)
-    {
-        if(!userRepository.existsById(id)){
-            return "redirect:/";
-        }
-        User res = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Неверный id: "+id));
+        user.ifPresent(res::add);
         model.addAttribute("user", res);
-
-        return "blog-useredit";
+        model.addAttribute("roles", Role.values());
+        return "userEdit";
     }
 
-    @PostMapping("/blog/usermain/{id}/edit")
-    public String blogPostUpdate(@PathVariable("id") long id, @ModelAttribute("user") @Validated User user, BindingResult bindingResult){
-        user.setId(id);
-        if(bindingResult.hasErrors()){
-
-            return "blog-useredit";
+    @PostMapping
+    public String userSave(@RequestParam String username,@RequestParam(name="roles[]", required = false) String[] roles,
+                           @RequestParam("userId") User user){
+        user.setUsername(username);
+        user.getRoles().clear();
+        if(roles!=null)
+        {
+            Arrays.stream(roles).forEach(r->user.getRoles().add(Role.valueOf(r)));
         }
         userRepository.save(user);
-        return "redirect:../";
+
+        return "redirect:/admin";
     }
 
-    @PostMapping("/blog/usermain/{id}/remove")
+    @PostMapping("/{id}/remove")
     public String blogPostRemove(@PathVariable("id") long id, Model model)
     {
-        User post = userRepository.findById(id).orElseThrow();
-        userRepository.delete(post);
-        return "redirect:/";
+        User user = userRepository.findById(id).orElseThrow();
+        userRepository.delete(user);
+        return "redirect:/admin";
     }
 
+
+
+
+
+    @GetMapping("/useradd")
+    public String blogAdd(Model model)
+    {
+
+        return "userAdd";
+    }
+
+    @PostMapping("/useradd")
+    public String addUser(User user, Model model){
+        User userFromDb = userRepository.findByUsername(user.getUsername());
+        if(userFromDb != null)
+        {
+            model.addAttribute("message", "Пользователь с таким логином уже зарегистрирован");
+            return "userAdd";
+        }
+        user.setRoles(Collections.singleton(Role.USER));
+        userRepository.save(user);
+        return "redirect:/admin";
+    }
 }

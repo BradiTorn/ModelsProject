@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CarRepository extends CrudRepository<Car, Long> {
 
-    List<Car> findByNomerContains(int nomer);
-    List<Car> findByNomer(int nomer);
+    Car findByNamecarContains(String namecar);
+    List<Car> findByNomer(String namecar);
 }

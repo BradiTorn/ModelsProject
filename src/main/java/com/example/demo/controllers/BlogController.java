@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/")
 public class BlogController  {
     @Autowired
     private PostRepository postRepository;

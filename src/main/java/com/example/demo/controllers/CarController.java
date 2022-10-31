@@ -112,4 +112,48 @@ public class CarController {
         markaRepository.save(marka);
         return "redirect:/";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping("/blog/carmain/car-park")
+    public String GetSU(Model model){
+        Iterable<Car> cars = carRepository.findAll();
+        model.addAttribute("cars", cars);
+        Iterable<Parking> parkings = parkingRepository.findAll();
+        model.addAttribute("parkings", parkings);
+        return "car-park";
+
+    }
+
+
+    @GetMapping("/blog/carmain/car-park/car-park-add")
+    public String SUAdd(Car car, Parking parking, Model model){
+        model.addAttribute("parkingss", parkingRepository.findAll());
+        model.addAttribute("carss", carRepository.findAll());
+        return "car-park-add";
+    }
+
+    @PostMapping("/blog/carmain/car-park/car-park-add")
+    public String SUAdd(@RequestParam String cars, @RequestParam String parkings, Model model){
+        Car car2 = carRepository.findByNamecarContains(cars);
+        Parking parking2 = parkingRepository.findByRackContains(parkings);
+        car2.getParkingList().add(parking2);
+        parking2.getCarList().add(car2);
+        carRepository.save(car2);
+        parkingRepository.save(parking2);
+        return "redirect:/blog/carmain/car-park";
+    }
 }

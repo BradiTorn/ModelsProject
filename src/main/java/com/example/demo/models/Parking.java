@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "parking")
 public class Parking {
 
-    public Parking(int rack, List<Car> carList) {
+    public Parking(String rack, List<Car> carList) {
         this.rack = rack;
         this.carList = carList;
 
@@ -21,7 +21,7 @@ public class Parking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int rack;
+    private String rack;
 
     @ManyToMany
     @JoinTable(name = "ParkCar",
@@ -41,11 +41,11 @@ public class Parking {
 
 
 
-    public int getRack() {
+    public String getRack() {
         return rack;
     }
 
-    public void setRack(int rack) {
+    public void setRack(String rack) {
         this.rack = rack;
     }
 

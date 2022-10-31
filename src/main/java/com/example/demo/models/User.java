@@ -1,51 +1,26 @@
 package com.example.demo.models;
 
-import javax.persistence.*;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
-public class User {
-
-    public User(String username, String password, int phone, float checks, boolean accesss) {
-        this.username = username;
-        this.password = password;
-        this.phone = phone;
-        this.checks = checks;
-        this.accesss = accesss;
-
-    }
-
-    public User() {
-    }
-
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-
-    @NotEmpty(message = "Поле не может быть пустым")
-    @Size(min = 4, max = 20, message = "От 4 до 20 символов")
     private String username;
-
-
-    @NotEmpty(message = "Поле не может быть пустым")
-    @Size(min = 8, max = 20, message = "От 8 до 16 символов")
     private String password;
+    private boolean active;
 
-
-    private int phone;
-
-
-    @DecimalMax("10000.0") @DecimalMin("0.0")
-    private float checks;
-
-
-
-    private boolean accesss;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name="user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -59,8 +34,33 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
     }
 
     public String getPassword() {
@@ -71,28 +71,19 @@ public class User {
         this.password = password;
     }
 
-    public int getPhone() {
-        return phone;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setPhone(int phone) {
-        this.phone = phone;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public float getChecks() {
-        return checks;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setChecks(float checks) {
-        this.checks = checks;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
-
-    public boolean getAccesss() {
-        return accesss;
-    }
-
-    public void setAccesss(boolean accesss) {
-        this.accesss = accesss;
-    }
-
 }
